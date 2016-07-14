@@ -11,7 +11,7 @@ const commands = {
   help: require('./commands/help.js'),
   join: require('./commands/join.js'),
   part: require('./commands/part.js'),
-  search: require('./commands/search.js')
+  'mxd-search': require('./commands/mxd-search.js')
 };
 const modules = [
   require('./modules/replyto'),
