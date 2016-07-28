@@ -2,6 +2,7 @@ const AssetsQuery = require('../proxies/assets-query.js');
 
 module.exports = ({ heimdall }) => async ({ args, reply }) => {
   const query = (new AssetsQuery())
+    .filter('contentTypeSeriesOrMovies')
     .filter('search', args);
   const assets = await heimdall(query);
   if (assets.length) {

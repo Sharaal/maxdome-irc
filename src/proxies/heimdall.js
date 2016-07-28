@@ -3,8 +3,7 @@ const rp = require('request-promise');
 module.exports = ({ apikey, appid, pageSize }) => async query => {
   query
     .query('apikey', apikey)
-    .query('appid', appid)
-    .filter('contentTypeSeriesOrMovies');
+    .query('appid', appid);
   if (pageSize) {
     query.query('pageSize', pageSize);
   }
