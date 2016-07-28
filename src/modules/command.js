@@ -16,9 +16,8 @@ module.exports = ({ admin, client, commands, from, message, reply, replyto }) =>
   } else {
     command = message.substring(1);
   }
-  if (commands[command]) {
-    return commands[command]({ admin, args, client, from, reply, replyto });
-  } else {
-    reply.send(`unknown command "${command}", use !help to get more information about the available commands`);
+  if (!commands[command]) {
+    return;
   }
+  return commands[command]({ admin, args, client, from, reply, replyto });
 };
