@@ -8,14 +8,14 @@ module.exports = ({ client, from, replyto }) => {
       }
       return url;
     },
-    send: message => {
-      if (Array.isArray(message)) {
-        message = message.join('\n');
+    send: text => {
+      if (Array.isArray(text)) {
+        text = text.join('\n');
       }
       if (replyto !== from) {
-        message = `${from}: ${message}`;
+        text = `${from}: ${text}`;
       }
-      client.say(replyto, message);
+      client.say(replyto, text);
     }
   };
 };
