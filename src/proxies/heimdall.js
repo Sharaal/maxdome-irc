@@ -16,7 +16,11 @@ module.exports = ({ apikey, appid, pageSize }) => async query => {
     },
     json: true,
     transform: data => data.assetList.map(asset => {
-      return { title: asset.title, url: `http://store.maxdome.de/${asset.id}` };
+      let title = asset.title;
+      if (asset['@class'] === 'MultiAssetTvSeriesSeason') {
+        title += ` (Season ${asset.number})`;
+      }
+      return { id: asset.id, title, description: asset.descriptionShort };
     })
   });
 };
