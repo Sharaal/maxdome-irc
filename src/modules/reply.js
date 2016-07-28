@@ -10,7 +10,7 @@ module.exports = ({ client, from, replyto }) => {
     },
     send: text => {
       if (Array.isArray(text)) {
-        text = text.join('\n');
+        text = text.join(', ');
       }
       if (replyto !== from) {
         text = `${from}: ${text}`;
