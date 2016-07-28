@@ -1,21 +1,24 @@
 'use strict';
 
-module.exports = commands => ctx => {
-  if (ctx.message.length < 2) {
+module.exports = ({ admin, client, commands, from, message, reply, replyto }) => {
+  if (message.length < 2) {
     return;
   }
-  if (ctx.message[0] !== '!') {
+  if (message[0] !== '!') {
     return;
   }
-  const index = ctx.message.indexOf(' ');
+  const index = message.indexOf(' ');
+  let command;
+  let args;
   if (index !== -1) {
-    ctx.command = { name: ctx.message.substring(1, index), args: ctx.message.substring(index + 1) };
+    command = message.substring(1, index);
+    args = message.substring(index + 1);
   } else {
-    ctx.command = { name: ctx.message.substring(1) };
+    command = message.substring(1);
   }
-  if (commands[ctx.command.name]) {
-    commands[ctx.command.name](ctx);
+  if (commands[command]) {
+    return commands[command]({ admin, args, client, from, reply, replyto });
   } else {
-    ctx.reply(`unknown command "${ctx.command.name}", use !help to get more information about the available commands`);
+    reply.send(`unknown command "${command}", use !help to get more information about the available commands`);
   }
 };

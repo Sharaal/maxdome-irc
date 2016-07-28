@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async ctx => {
-  await ctx.admin();
-  ctx.client.join(ctx.command.args);
+module.exports = async ({ admin, args, client }) => {
+  await admin();
+  client.join(args);
 };

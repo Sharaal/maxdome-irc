@@ -1,10 +1,14 @@
-'use strict';
+const AssetsQuery = require('../proxies/assets-query.js');
 
-module.exports = async ctx => {
-  const assets = await ctx.heimdall.search(ctx.command.args);
+module.exports = ({ heimdall }) => async ({ args, reply }) => {
+  const query = (new AssetsQuery())
+    .filter('search', args);
+  const assets = await heimdall(query);
   if (assets.length) {
-    ctx.reply(assets.join(', '));
+    const lines = assets.map(asset => reply.link(asset.url, asset.title));
+    lines.push(reply.link(`https://store.maxdome.de/suche?search=${args}`, 'show all...'));
+    reply.send(lines);
   } else {
-    ctx.reply(`no results found for "${ctx.command.args}"`);
+    reply.send(`no results found for "${args}"`);
   }
 };

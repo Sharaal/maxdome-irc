@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = ctx => {
-  if (ctx.to === ctx.client.nick) {
-    ctx.replyto = ctx.from;
+module.exports = ({ client, from, to }) => {
+  if (client.nick === to) {
+    return from;
   } else {
-    ctx.replyto = ctx.to;
+    return to;
   }
 };

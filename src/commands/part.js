@@ -1,13 +1,11 @@
-'use strict';
-
-module.exports = async ctx => {
-  await ctx.admin();
-  const message = `part requested by "${ctx.from}"`;
-  if (ctx.from === ctx.replyto) {
-    ctx.client.part(ctx.command.args, message, () => {
-      ctx.reply(`channel "${ctx.command.args}" parted`);
+module.exports = async ({ admin, args, client, from, reply, replyto }) => {
+  await admin();
+  const message = `part requested by "${from}"`;
+  if (from === replyto) {
+    client.part(args, message, () => {
+      reply.send(`channel "${args}" parted`);
     });
   } else {
-    ctx.client.part(ctx.replyto, message);
+    client.part(replyto, message);
   }
 };

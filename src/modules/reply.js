@@ -1,10 +1,21 @@
 'use strict';
 
-module.exports = ctx => {
-  ctx.reply = message => {
-    if (ctx.replyto !== ctx.from) {
-      message = `${ctx.from}: ${message}`;
+module.exports = ({ client, from, replyto }) => {
+  return {
+    link: (url, label) => {
+      if (label) {
+        return `${label} (${url})`;
+      }
+      return url;
+    },
+    send: message => {
+      if (Array.isArray(message)) {
+        message = message.join('\n');
+      }
+      if (replyto !== from) {
+        message = `${from}: ${message}`;
+      }
+      client.say(replyto, message);
     }
-    ctx.client.say(ctx.replyto, message);
   };
 };
