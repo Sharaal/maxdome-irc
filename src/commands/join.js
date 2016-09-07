@@ -1,4 +1,6 @@
-module.exports = async ({ admin, args, client }) => {
+module.exports = async ({ admin, args, client, reply }) => {
   await admin();
-  client.join(args);
+  client.join(args, () => {
+    reply.send(`channel "${args}" joined`);
+  });
 };
