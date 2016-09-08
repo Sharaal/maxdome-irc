@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = ({ client, from, reply }) => async () => new Promise((resolve, reject) => {
   client.whois(from, info => {
     if (info.account) {
