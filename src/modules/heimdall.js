@@ -12,7 +12,7 @@ module.exports = ({ apikey, appid }) => {
         'maxdome-origin': 'maxdome.de',
         platform: 'web'
       },
-      headers
+      headers || {}
     );
     return rp[method]({
       body,
