@@ -33,10 +33,11 @@ client.addListener('message', async (from, to, message) => {
   const replyto = require('./modules/replyto.js')({ client, from, to });
   const reply = require('./modules/reply.js')({ client, from, replyto });
   const admin = require('./modules/admin.js')(process.env.ADMIN_ACCOUNT)({ client, from, reply });
+  const loggedin = require('./modules/loggedin.js')({ client, from, reply });
   try {
     const { commandName, args } = require('./modules/commandName.js')({ from, message, replyto });
     if (commandName && commands[commandName]) {
-      await commands[commandName]({ admin, args, client, from, reply, replyto });
+      await commands[commandName]({ admin, args, client, loggedin, from, reply, replyto });
     }
   } catch(e) {}
 });
