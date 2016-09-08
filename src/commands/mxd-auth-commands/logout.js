@@ -1,6 +1,14 @@
 module.exports = ({ heimdall, heimdallSessions }) => async ({ heimdallLoggedin, reply }) => {
-  reply.send(`logout`);
-
   const { account, session } = await heimdallLoggedin();
-  reply.send(`loggedin in IRC with "${account}" and in maxdome with "${session.sessionId}"`);
+  try {
+    await heimdall.post('auth/logout', undefined ,{ 'mxd-session': session.sessionId });
+    heimdallSessions.delete(account);
+    reply.send('logout sucessful');
+  } catch (e) {
+    if (e.error) {
+      reply.send(`logout error "${e.error.message}"`);
+    } else {
+      reply.send(`logout error "${e.message}"`);
+    }
+  }
 };
