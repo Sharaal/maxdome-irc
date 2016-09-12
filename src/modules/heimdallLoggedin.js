@@ -1,7 +1,7 @@
-module.exports = ({ heimdallSessions }) => ({ loggedin, reply }) => async () => {
+module.exports = ({ sessionStorage }) => ({ loggedin, reply }) => async () => {
   const account = await loggedin();
-  if (heimdallSessions.has(account)) {
-    const session = heimdallSessions.get(account);
+  if (sessionStorage.has(account)) {
+    const session = sessionStorage.get(account);
     return { account, session };
   } else {
     reply.send('you are not logged in in maxdome');

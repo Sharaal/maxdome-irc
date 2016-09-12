@@ -11,15 +11,22 @@ const heimdall = new Heimdall({
   appid: process.env.HEIMDALL_APPID
 });
 
-const heimdallSessions = new Map();
+const sessionStorage = (() => {
+  const map = new Map();
+  return {
+    del: key => map.delete(key),
+    get: map.get,
+    set: map.set
+  };
+})();
 
 const commands = {
   '!mxd-help': require('./commands/help.js'),
   '!mxd-join': require('./commands/join.js'),
-  '!mxd-login': require('./commands/mxd-auth-commands/login.js')({ heimdall, heimdallSessions }),
-  '!mxd-logout': require('./commands/mxd-auth-commands/logout.js')({ heimdall, heimdallSessions }),
-  '!mxd-notepad-add': require('./commands/mxd-notepad-commands/notepad-add.js')({ heimdall, heimdallSessions }),
-  '!mxd-notepad-remove': require('./commands/mxd-notepad-commands/notepad-remove.js')({ heimdall, heimdallSessions }),
+  '!mxd-login': require('./commands/mxd-auth-commands/login.js')({ heimdall, sessionStorage }),
+  '!mxd-logout': require('./commands/mxd-auth-commands/logout.js')({ heimdall, sessionStorage }),
+  '!mxd-notepad-add': require('./commands/mxd-notepad-commands/notepad-add.js')({ heimdall }),
+  '!mxd-notepad-remove': require('./commands/mxd-notepad-commands/notepad-remove.js')({ heimdall }),
   '!mxd-part': require('./commands/part.js'),
   '!mxd-info': require('info-command'),
   '!mxd-search': require('mxd-search-command')({
@@ -33,7 +40,7 @@ client.addListener('message', async (from, to, message) => {
   const reply = require('./modules/reply.js')({ client, from, replyto });
   const admin = require('./modules/admin.js')(process.env.ADMIN_ACCOUNT)({ client, from, reply });
   const loggedin = require('./modules/loggedin.js')({ client, from, reply });
-  const heimdallLoggedin = require('./modules/heimdallLoggedin.js')({ heimdallSessions })({ loggedin, reply });
+  const heimdallLoggedin = require('./modules/heimdallLoggedin.js')({ sessionStorage })({ loggedin, reply });
   try {
     const { commandName, args } = require('./modules/commandName.js')({ from, message, replyto });
     if (commandName && commands[commandName]) {
