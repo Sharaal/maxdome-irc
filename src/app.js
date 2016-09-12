@@ -7,17 +7,20 @@ client.addListener('error', message => {
   console.log('error: ', message);
 });
 
-const heimdall = require('mxd-heimdall').heimdall({
+const Heimdall = require('mxd-heimdall').Heimdall;
+const heimdall = new Heimdall({
   apikey: process.env.HEIMDALL_APIKEY,
-  appid: process.env.HEIMDALL_APPID,
-  pageSize: process.env.HEIMDALL_PAGESIZE || 3
+  appid: process.env.HEIMDALL_APPID
 });
 const commands = {
   '!mxd-help': require('./commands/help.js'),
   '!mxd-join': require('./commands/join.js'),
   '!mxd-part': require('./commands/part.js'),
   '!mxd-info': require('info-command'),
-  '!mxd-search': require('mxd-search-command')({ heimdall })
+  '!mxd-search': require('mxd-search-command')({
+    heimdall: heimdall,
+    pageSize: process.env.HEIMDALL_PAGESIZE || 3
+  })
 };
 
 client.addListener('message', async (from, to, message) => {
