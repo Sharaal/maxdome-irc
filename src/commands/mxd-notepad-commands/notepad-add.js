@@ -1,4 +1,4 @@
-module.exports = ({ heimdall, heimdallSessions }) => async ({ args, heimdallLoggedin, reply }) => {
+module.exports = ({ heimdall }) => async ({ args, heimdallLoggedin, reply }) => {
   const { session } = await heimdallLoggedin();
   try {
     await heimdall.request(`mxd/notepad/${session.customer.customerId}`, {
