@@ -2,7 +2,10 @@ module.exports = ({ heimdall, heimdallSessions }) => async ({ args, loggedin, re
   const account = await loggedin();
   const [userId, phrase] = args.split(' ');
   try {
-    const data = await heimdall.post('auth/login', { userId, phrase, clientIp: '' });
+    const data = await heimdall.request('auth/login', {
+      body: { userId, phrase, clientIp: '' },
+      method: 'post'
+    });
     heimdallSessions.set(account, { customer: { customerId: data.customer.customerId }, sessionId: data.sessionId });
     reply.send('login sucessful');
   } catch (e) {

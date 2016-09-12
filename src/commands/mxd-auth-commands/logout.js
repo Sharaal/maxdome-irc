@@ -1,7 +1,11 @@
 module.exports = ({ heimdall, heimdallSessions }) => async ({ heimdallLoggedin, reply }) => {
   const { account, session } = await heimdallLoggedin();
   try {
-    await heimdall.post('auth/logout', undefined ,{ 'mxd-session': session.sessionId });
+    console.log(session.sessionId);
+    await heimdall.request('auth/logout', {
+      headers: { 'mxd-session': session.sessionId },
+      method: 'post'
+    });
     heimdallSessions.delete(account);
     reply.send('logout sucessful');
   } catch (e) {

@@ -5,12 +5,8 @@ client.addListener('error', message => {
   console.log('error: ', message);
 });
 
-const heimdallAssets = require('mxd-heimdall').heimdall({
-  apikey: process.env.HEIMDALL_APIKEY,
-  appid: process.env.HEIMDALL_APPID,
-  pageSize: process.env.HEIMDALL_PAGESIZE || 3
-});
-const heimdall = require('./modules/heimdall')({
+const Heimdall = require('mxd-heimdall').Heimdall;
+const heimdall = new Heimdall({
   apikey: process.env.HEIMDALL_APIKEY,
   appid: process.env.HEIMDALL_APPID
 });
@@ -26,7 +22,10 @@ const commands = {
   '!mxd-notepad-remove': require('./commands/mxd-notepad-commands/notepad-remove.js')({ heimdall, heimdallSessions }),
   '!mxd-part': require('./commands/part.js'),
   '!mxd-info': require('info-command'),
-  '!mxd-search': require('mxd-search-command')({ heimdall: heimdallAssets })
+  '!mxd-search': require('mxd-search-command')({
+    heimdall: heimdall,
+    pageSize: process.env.HEIMDALL_PAGESIZE || 3
+  })
 };
 
 client.addListener('message', async (from, to, message) => {
