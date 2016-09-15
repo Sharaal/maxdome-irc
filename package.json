@@ -19,9 +19,9 @@
     "babel-preset-es2015-node4": "^2.1.0",
     "info-command": "^2.0.0",
     "irc": "^0.5.0",
-    "mxd-auth-commands": "^1.0.0",
-    "mxd-heimdall": "^2.0.0",
-    "mxd-notepad-commands": "^1.0.0",
+    "mxd-auth-commands": "^1.1.0",
+    "mxd-heimdall": "^2.1.0",
+    "mxd-notepad-commands": "^1.1.0",
     "mxd-search-command": "^2.0.0",
     "request": "^2.74.0",
     "request-promise": "^4.0.2"
