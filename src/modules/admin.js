@@ -1,10 +1,6 @@
-module.exports = account => ({ client, from, reply }) => async () => new Promise((resolve, reject) => {
-  client.whois(from, info => {
-    if (info.account === account) {
-      resolve();
-    } else {
-      reply.send('you are not authorized for the command');
-      reject();
-    }
-  });
-});
+module.exports = adminId => ({ client, loggedin, from, reply }) => async () => {
+  const account = await loggedin();
+  if (account.id !== adminId) {
+    throw new Error('you are not authorized for the command');
+  }
+};
