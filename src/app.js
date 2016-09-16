@@ -17,7 +17,6 @@ const mxdAuthCommands = require('mxd-auth-commands');
 const mxdNotepadCommands = require('mxd-notepad-commands');
 
 const commands = {
-  '!mxd-help': require('./commands/help.js'),
   '!mxd-info': require('info-command').commands.info,
   '!mxd-join': require('./commands/join.js'),
   '!mxd-login': mxdAuthCommands.commands['mxd-login']({ heimdall, sessionStorage }),
