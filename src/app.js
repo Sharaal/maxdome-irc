@@ -11,14 +11,7 @@ const heimdall = new Heimdall({
   appid: process.env.HEIMDALL_APPID
 });
 
-const sessionStorage = (() => {
-  const map = new Map();
-  return {
-    del: key => map.delete(key),
-    get: map.get,
-    set: map.set
-  };
-})();
+const sessionStorage = new Map();
 
 const mxdAuthCommands = require('mxd-auth-commands');
 const mxdNotepadCommands = require('mxd-notepad-commands');
