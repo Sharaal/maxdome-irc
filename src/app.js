@@ -11,8 +11,9 @@ const heimdall = new Heimdall({
   appid: process.env.HEIMDALL_APPID
 });
 
-const client = require('redis').createClient(process.env.REDIS_URL);
-const sessionStorage = require('mxd-session-storage')({ client });
+const sessionStorage = require('mxd-session-storage')({
+  url: process.env.REDIS_URL
+});
 
 const mxdAuthCommands = require('mxd-auth-commands');
 const mxdNotepadCommands = require('mxd-notepad-commands');
