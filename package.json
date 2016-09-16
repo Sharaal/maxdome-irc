@@ -1,6 +1,6 @@
 {
   "name": "maxdome-irc",
-  "description": "",
+  "description": "Search for assets and manage your maxdome account with an IRC chatbot",
   "version": "1.0.0",
   "homepage": "http://github.com/dragonprojects/maxdome-irc",
   "license": "MIT",
