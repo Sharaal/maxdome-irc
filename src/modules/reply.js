@@ -6,12 +6,12 @@ module.exports = ({ client, from, replyto }) => {
       }
       return url;
     },
-    send: (text, attachements) => {
-      if (attachements) {
+    send: (text, attachments) => {
+      if (attachments) {
         if (!Array.isArray(text)) {
           text = [text];
         }
-        text = text.concat(attachements.map(attachement => attachement.title));
+        text = text.concat(attachments.map(attachment => attachment.title));
       }
       if (Array.isArray(text)) {
         text = text.join(', ');
