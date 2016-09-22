@@ -6,7 +6,13 @@ module.exports = ({ client, from, replyto }) => {
       }
       return url;
     },
-    send: text => {
+    send: (text, attachements) => {
+      if (attachements) {
+        if (!Array.isArray(text)) {
+          text = [text];
+        }
+        text = text.concat(attachements.map(attachement => attachement.title));
+      }
       if (Array.isArray(text)) {
         text = text.join(', ');
       }
