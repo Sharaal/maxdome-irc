@@ -3,6 +3,15 @@
   "description": "Search for assets and manage your maxdome account with an IRC chatbot",
   "version": "1.0.0",
   "homepage": "http://github.com/dragonprojects/maxdome-irc",
+  "author": {
+    "name": "Sharaal",
+    "email": "developer@dragonprojects.de",
+    "url": "http://dragonprojects.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dragonprojects/maxdome-irc.git"
+  },
   "license": "MIT",
   "private": true,
   "readmeFilename": "README.md",
@@ -19,14 +28,13 @@
     "babel-preset-es2015-node4": "^2.1.0",
     "info-command": "^2.0.0",
     "irc": "^0.5.0",
-    "mxd-heimdall": "^2.0.0",
-    "mxd-search-command": "^2.0.0"
+    "mxd-auth-commands": "^2.0.1",
+    "mxd-heimdall": "^2.1.0",
+    "mxd-notepad-commands": "^1.1.0",
+    "mxd-search-command": "^2.0.0",
+    "mxd-session-storage": "^1.0.0"
   },
   "devDependencies": {
     "dotenv": "^2.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dragonprojects/maxdome-irc.git"
   }
 }

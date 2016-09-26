@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = ({ from, message, replyto }) => {
   let commandName;
   let args;

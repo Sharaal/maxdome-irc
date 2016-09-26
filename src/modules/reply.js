@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = ({ client, from, replyto }) => {
   return {
     link: (url, label) => {
