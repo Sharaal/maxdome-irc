@@ -7,15 +7,13 @@ module.exports = ({ client, from, replyto }) => {
       return url;
     },
     send: (text, attachments) => {
+      if (!Array.isArray(text)) {
+        text = [text];
+      }
       if (attachments) {
-        if (!Array.isArray(text)) {
-          text = [text];
-        }
         text = text.concat(attachments.map(attachment => attachment.title));
       }
-      if (Array.isArray(text)) {
-        text = text.join(', ');
-      }
+      text = text.join(', ');
       if (replyto !== from) {
         text = `${from}: ${text}`;
       }
