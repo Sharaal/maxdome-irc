@@ -38,7 +38,7 @@ client.addListener('message', async (from, to, message) => {
   const reply = require('./modules/reply.js')({ client, from, replyto });
   const loggedin = require('./modules/loggedin.js')({ client, from, reply });
   const admin = require('./modules/admin.js')(process.env.ADMIN_ID)({ client, from, loggedin, reply });
-  const heimdallLoggedin = mxdAuthCommands.modules['heimdall-loggedin']({ sessionStorage })({ loggedin, reply });
+  const heimdallLoggedin = mxdAuthCommands.modules['heimdall-loggedin']({ heimdall, sessionStorage })({ loggedin, reply });
   try {
     const { commandName, args } = require('./modules/commandName.js')({ from, message, replyto });
     if (commandName && commands[commandName]) {
