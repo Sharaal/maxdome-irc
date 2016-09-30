@@ -44,7 +44,7 @@ ircClient.addListener('message', async (from, to, message) => {
   try {
     const { commandName, args } = require('./modules/commandName.js')({ from, message, replyto });
     if (commandName && commands[commandName]) {
-      await commands[commandName]({ admin, args, client: ircClient, heimdallLoggedin, loggedin, from, reply, replyto });
+      await commands[commandName]({ admin, args, client: ircClient, from, heimdallLoggedin, loggedin, reply, replyto });
     }
   } catch(e) {
     reply.send(`error "${e.message}"`);
