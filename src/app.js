@@ -1,9 +1,3 @@
-const { AssetsQuery, Heimdall } = require('mxd-heimdall');
-const heimdall = new Heimdall({
-  apikey: process.env.HEIMDALL_APIKEY,
-  appid: process.env.HEIMDALL_APPID
-});
-
 const redisClient = require('redis').createClient(process.env.REDIS_URL);
 const channelStorage = require('mxd-channel-storage')({ redisClient });
 const sessionStorage = require('mxd-session-storage')({ redisClient });
@@ -19,6 +13,12 @@ ircClient.addListener('error', message => {
 
 const mxdAuthCommands = require('mxd-auth-commands');
 const mxdNotepadCommands = require('mxd-notepad-commands');
+
+const { AssetsQuery, Heimdall } = require('mxd-heimdall');
+const heimdall = new Heimdall({
+  apikey: process.env.HEIMDALL_APIKEY,
+  appid: process.env.HEIMDALL_APPID
+});
 
 const commands = {
   '!mxd-info': require('info-command').commands.info,
