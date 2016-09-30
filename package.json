@@ -29,10 +29,11 @@
     "info-command": "^2.0.0",
     "irc": "^0.5.0",
     "mxd-auth-commands": "^3.0.0",
+    "mxd-channel-storage": "^1.0.0",
     "mxd-heimdall": "^2.1.0",
     "mxd-notepad-commands": "^1.1.0",
     "mxd-search-command": "^2.0.0",
-    "mxd-session-storage": "^1.0.0",
+    "mxd-session-storage": "^1.1.0",
     "redis": "^2.6.2"
   },
   "devDependencies": {
