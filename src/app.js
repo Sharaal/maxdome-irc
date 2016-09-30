@@ -3,10 +3,15 @@ const channelStorage = require('mxd-channel-storage')({ redisClient });
 const sessionStorage = require('mxd-session-storage')({ redisClient });
 
 const irc = require('irc');
-const channels = channelStorage.values();
-channels.push(process.env.IRC_CHANNEL);
-const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, { channels });
-
+const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, {
+  channels: [process.env.IRC_CHANNEL]
+});
+ircClient.addListener('registered', async () => {
+  const channels = await channelStorage.values();
+  for (const channel of channels) {
+    ircClient.join(channel);
+  }
+});
 ircClient.addListener('error', message => {
   console.log('error: ', message);
 });
