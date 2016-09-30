@@ -32,7 +32,8 @@
     "mxd-heimdall": "^2.1.0",
     "mxd-notepad-commands": "^1.1.0",
     "mxd-search-command": "^2.0.0",
-    "mxd-session-storage": "^1.0.0"
+    "mxd-session-storage": "^1.0.0",
+    "redis": "^2.6.2"
   },
   "devDependencies": {
     "dotenv": "^2.0.0"

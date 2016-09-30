@@ -1,18 +1,20 @@
-const irc = require('irc');
-const client = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, { channels: [process.env.IRC_CHANNEL] });
-
-client.addListener('error', message => {
-  console.log('error: ', message);
-});
-
 const { AssetsQuery, Heimdall } = require('mxd-heimdall');
 const heimdall = new Heimdall({
   apikey: process.env.HEIMDALL_APIKEY,
   appid: process.env.HEIMDALL_APPID
 });
 
-const sessionStorage = require('mxd-session-storage')({
-  url: process.env.REDIS_URL
+const client = require('redis').createClient(process.env.REDIS_URL);
+const channelStorage = require('mxd-channel-storage')({ client });
+const sessionStorage = require('mxd-session-storage')({ client });
+
+const irc = require('irc');
+const channels = channelStorage.values();
+channels.push(process.env.IRC_CHANNEL);
+const client = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, { channels });
+
+client.addListener('error', message => {
+  console.log('error: ', message);
 });
 
 const mxdAuthCommands = require('mxd-auth-commands');
@@ -20,12 +22,12 @@ const mxdNotepadCommands = require('mxd-notepad-commands');
 
 const commands = {
   '!mxd-info': require('info-command').commands.info,
-  '!mxd-join': require('./commands/join.js'),
+  '!mxd-join': require('./commands/join.js')({ channelStorage }),
   '!mxd-login': mxdAuthCommands.commands['mxd-login']({ heimdall, sessionStorage }),
   '!mxd-logout': mxdAuthCommands.commands['mxd-logout']({ heimdall, sessionStorage }),
   '!mxd-notepad-add': mxdNotepadCommands.commands['mxd-notepad-add']({ heimdall }),
   '!mxd-notepad-remove': mxdNotepadCommands.commands['mxd-notepad-remove']({ heimdall }),
-  '!mxd-part': require('./commands/part.js'),
+  '!mxd-part': require('./commands/part.js')({ channelStorage }),
   '!mxd-search': require('mxd-search-command').commands['mxd-search']({
     AssetsQuery: AssetsQuery,
     heimdall: heimdall,
