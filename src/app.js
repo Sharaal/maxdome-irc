@@ -10,6 +10,7 @@ console.log('IRC_HOST: ' + process.env.IRC_HOST);
 console.log('IRC_NICK: ' + process.env.IRC_NICK);
 const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, {
   debug: true, showErrors: true,
+  sasl:true, username: process.env.IRC_USERNAME, password: process.env.IRC_PASSWORD,
   channels: ['#maxdome-irc']
 });
 ircClient.addListener('registered', async () => {
