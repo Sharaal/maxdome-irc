@@ -1,32 +1,26 @@
-console.log('begin to start maxdome-irc');
-
-console.log('REDIS_URL: ' + process.env.REDIS_URL);
 const redisClient = require('redis').createClient(process.env.REDIS_URL);
 const channelStorage = require('mxd-channel-storage')({ client: redisClient });
 const sessionStorage = require('mxd-session-storage')({ client: redisClient });
 
 const irc = require('irc');
-console.log('IRC_HOST: ' + process.env.IRC_HOST);
-console.log('IRC_NICK: ' + process.env.IRC_NICK);
-console.log('IRC_SASL: ' + process.env.IRC_SASL, process.env.IRC_SASL === '1');
-console.log('IRC_USERNAME: ' + process.env.IRC_USERNAME);
-console.log('IRC_PASSWORD: ' + process.env.IRC_PASSWORD);
-const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, {
-  debug: true, showErrors: true,
-  sasl: process.env.IRC_SASL === '1', userName: process.env.IRC_USERNAME, password: process.env.IRC_PASSWORD,
-  channels: ['#maxdome-irc']
-});
+let options = {};
+if (process.env.IRC_USERNAME) {
+  options = Object.assign(options, {
+    sasl: true,
+    userName: process.env.IRC_USERNAME,
+    password: process.env.IRC_PASSWORD
+  });
+}
+const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, options);
 ircClient.addListener('registered', async () => {
-  console.log('listener "registered"');
   const client = ircClient;
   const channels = await channelStorage.values();
   for (const channel of channels) {
     client.join(channel);
   }
-  client.say(process.env.ADMIN_ID, 'Im here!');
+  client.say(process.env.ADMIN_ID, 'registered');
 });
 ircClient.addListener('error', message => {
-  console.log('listener "error"');
   console.log('error: ', message);
 });
 
@@ -70,7 +64,3 @@ ircClient.addListener('message', async (from, to, message) => {
     reply.send(`error "${e.message}"`);
   }
 });
-console.log('end of starting maxdome-irc');
-setInterval(() => {
-  console.log('ping');
-}, 1000);
