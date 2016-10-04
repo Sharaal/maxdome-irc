@@ -13,12 +13,11 @@ if (process.env.IRC_USERNAME) {
 }
 const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, options);
 ircClient.addListener('registered', async () => {
-  const client = ircClient;
   const channels = await channelStorage.values();
   for (const channel of channels) {
-    client.join(channel);
+    ircClient.join(channel);
   }
-  client.say(process.env.ADMIN_ID, 'registered');
+  ircClient.say(process.env.ADMIN_ID, 'registered');
 });
 ircClient.addListener('error', message => {
   console.log('error: ', message);
