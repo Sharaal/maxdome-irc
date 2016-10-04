@@ -63,3 +63,4 @@ ircClient.addListener('message', async (from, to, message) => {
     reply.send(`error "${e.message}"`);
   }
 });
+console.log('end of starting maxdome-irc');
