@@ -10,7 +10,7 @@ ircClient.addListener('registered', async () => {
   for (const channel of channels) {
     client.join(channel);
   }
-  client.say('Sharaal', 'Im here!');
+  client.say(process.env.ADMIN_ID, 'Im here!');
 });
 ircClient.addListener('error', message => {
   console.log('error: ', message);
