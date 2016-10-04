@@ -24,6 +24,7 @@ const heimdall = new Heimdall({
 });
 
 const commands = {
+  '!mxd-channels': require('./commands/channels.js')({ channelStorage }),
   '!mxd-info': require('info-command').commands.info,
   '!mxd-join': require('./commands/join.js')({ channelStorage }),
   '!mxd-login': mxdAuthCommands.commands['mxd-login']({ heimdall, sessionStorage }),
