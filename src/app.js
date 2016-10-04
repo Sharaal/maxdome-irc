@@ -64,3 +64,6 @@ ircClient.addListener('message', async (from, to, message) => {
   }
 });
 console.log('end of starting maxdome-irc');
+setInterval(() => {
+  console.log('ping');
+}, 1000);
