@@ -13,7 +13,7 @@ console.log('IRC_USERNAME: ' + process.env.IRC_USERNAME);
 console.log('IRC_PASSWORD: ' + process.env.IRC_PASSWORD);
 const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, {
   debug: true, showErrors: true,
-  sasl: process.env.IRC_SASL === '1', username: process.env.IRC_USERNAME, password: process.env.IRC_PASSWORD,
+  sasl: process.env.IRC_SASL === '1', userName: process.env.IRC_USERNAME, password: process.env.IRC_PASSWORD,
   channels: ['#maxdome-irc']
 });
 ircClient.addListener('registered', async () => {
