@@ -18,7 +18,7 @@
   "main": "dest/app.js",
   "scripts": {
     "postinstall": "npm run transpile",
-    "start": "dthrong",
+    "start": "node dest/app.js",
     "develop": "npm run transpile && node -r dotenv/config dest/app.js",
     "transpile": "babel src -d dest"
   },
