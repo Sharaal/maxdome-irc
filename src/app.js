@@ -1,6 +1,6 @@
 const redisClient = require('redis').createClient(process.env.REDIS_URL);
-const channelStorage = require('mxd-channel-storage')({ redisClient });
-const sessionStorage = require('mxd-session-storage')({ redisClient });
+const channelStorage = require('mxd-channel-storage')({ client: redisClient });
+const sessionStorage = require('mxd-session-storage')({ client: redisClient });
 
 const irc = require('irc');
 const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, { channels: ['#maxdome-irc'] });
