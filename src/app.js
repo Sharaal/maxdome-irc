@@ -5,10 +5,12 @@ const sessionStorage = require('mxd-session-storage')({ client: redisClient });
 const irc = require('irc');
 const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, { channels: ['#maxdome-irc'] });
 ircClient.addListener('registered', async () => {
+  const client = ircClient;
   const channels = await channelStorage.values();
   for (const channel of channels) {
-    ircClient.join(channel);
+    client.join(channel);
   }
+  client.say('Sharaal', 'Im here!');
 });
 ircClient.addListener('error', message => {
   console.log('error: ', message);
