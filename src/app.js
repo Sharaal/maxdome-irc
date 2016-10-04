@@ -3,7 +3,7 @@ const channelStorage = require('mxd-channel-storage')({ redisClient });
 const sessionStorage = require('mxd-session-storage')({ redisClient });
 
 const irc = require('irc');
-const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK);
+const ircClient = new irc.Client(process.env.IRC_HOST, process.env.IRC_NICK, { channels: ['#maxdome-irc'] });
 ircClient.addListener('registered', async () => {
   const channels = await channelStorage.values();
   for (const channel of channels) {
