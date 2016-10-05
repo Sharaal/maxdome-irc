@@ -6,7 +6,7 @@ module.exports = ({ client, from, replyto }) => {
       }
       return url;
     },
-    send: text => {
+    send: (text) => {
       if (Array.isArray(text)) {
         text = text.join(', ');
       }
