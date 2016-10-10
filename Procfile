@@ -1,2 +1,2 @@
 bot: npm start
-ircbot: npm start
+irc_bot: npm start
